@@ -1,0 +1,15 @@
+Webdock
+Copyright (c) 2026 Spitzli Development and contributors.
+
+Original Webdock code is licensed under AGPL-3.0-only unless separately noted.
+Alternative written licenses may be available from the relevant rights holder.
+See LICENSE and COMMERCIAL-LICENSING.md.
+
+Third-party components retain their own licenses and copyright notices.
+
+Neon name and logomark are trademarks of their respective owner. The unmodified
+logomark in assets/icon.svg was retrieved from Neon's official brand assets on
+2026-11-02: https://neon.com/brand/neon-logomark-light-color.svg?updated=2026-06-03
+Usage guidance: https://neon.com/brand . This independent integration is not an
+official Neon product or an assertion of endorsement. Brand artwork is excluded
+from this repository's AGPL grant and retains the owner's rights.

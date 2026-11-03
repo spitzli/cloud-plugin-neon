@@ -1,0 +1,8 @@
+/target/
+**/target/
+/release/
+.env*
+*.pem
+*.key
+**/__pycache__/
+node_modules/
