@@ -1,0 +1,22 @@
+["package"]
+"name" = "webdock-registry-manifest-validator"
+"version" = "0.1.0"
+"edition" = "2024"
+"rust-version" = "1.94"
+"license" = "AGPL-3.0-only"
+"publish" = false
+
+["workspace"]
+
+["dependencies"]
+"serde_json" = "1"
+
+["dependencies"."webdock-plugin-protocol"]
+"git" = "https://github.com/spitzli/cloud-plugin-sdk"
+"rev" = "8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
+"package" = "webdock-plugin-protocol"
+
+["profile"]
+
+["profile"."dev"]
+"debug" = 0

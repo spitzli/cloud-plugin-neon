@@ -1,0 +1,39 @@
+{
+  "browser": "156.0.8078.4",
+  "actualConsoleAndPluginUI": true,
+  "syntheticDataOnly": true,
+  "providerContacted": false,
+  "imageEditing": false,
+  "captures": [
+    {
+      "file": "neon-connect.png",
+      "sha256": "f65c28132af2d3d836fa5326bcfa5562312c16599858afa9799b7acf8cca4d4f",
+      "bytes": 170613,
+      "role": "user",
+      "uriHidden": true,
+      "credentialsRequested": false,
+      "overflow": false,
+      "writeActionsDisabled": true
+    },
+    {
+      "file": "neon-database.png",
+      "sha256": "b14bbf15f0c0ea737e9d768a02cc8dd095676a4e92eddbad67624d0aedacdb41",
+      "bytes": 221372,
+      "role": "user",
+      "uriHidden": true,
+      "credentialsRequested": false,
+      "overflow": false,
+      "writeActionsDisabled": true
+    },
+    {
+      "file": "neon-database-mobile-de.png",
+      "sha256": "b873d45b5e1ef9746bc14606cb799e6f957f814e02d97232a073cdb958b30bbc",
+      "bytes": 208914,
+      "role": "user",
+      "uriHidden": true,
+      "credentialsRequested": false,
+      "overflow": false,
+      "writeActionsDisabled": true
+    }
+  ]
+}
