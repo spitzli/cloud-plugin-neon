@@ -1,0 +1,106 @@
+["package"]
+"name" = "webdock-neon"
+"version" = "0.1.0"
+"edition" = "2024"
+"rust-version" = "1.94"
+"license" = "AGPL-3.0-only"
+"publish" = false
+
+["workspace"]
+
+["dependencies"]
+"serde_json" = { version = "1", features = ["preserve_order"] }
+"ed25519-dalek" = "2"
+"hex" = "0.4"
+
+["dependencies"."serde"]
+"version" = "1"
+"features" = ["derive"]
+
+["dependencies"."tokio"]
+"version" = "1"
+"features" = ["macros", "rt-multi-thread", "signal", "net"]
+
+["dependencies"."webdock-plugin-protocol"]
+"git" = "https://github.com/spitzli/cloud-plugin-sdk"
+"rev" = "8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
+"package" = "webdock-plugin-protocol"
+
+["dependencies"."webdock-plugin-kit"]
+"git" = "https://github.com/spitzli/cloud-plugin-sdk"
+"rev" = "8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
+"package" = "webdock-plugin-kit"
+
+["dependencies"."webdock-plugin-runtime"]
+"git" = "https://github.com/spitzli/cloud-plugin-sdk"
+"rev" = "8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
+"package" = "webdock-plugin-runtime"
+
+["dependencies"."tonic"]
+"version" = "0.14.6"
+"features" = ["transport"]
+
+["dependencies"."rustix"]
+"version" = "1"
+"features" = ["process", "fs"]
+
+["lints"]
+
+["lints"."rust"]
+"unsafe_op_in_unsafe_fn" = "deny"
+"unused_must_use" = "deny"
+"unfulfilled_lint_expectations" = "deny"
+
+["lints"."clippy"]
+"allow_attributes_without_reason" = "deny"
+"as_ptr_cast_mut" = "deny"
+"await_holding_lock" = "deny"
+"await_holding_refcell_ref" = "deny"
+"cast_lossless" = "deny"
+"checked_conversions" = "deny"
+"dbg_macro" = "deny"
+"excessive_nesting" = "deny"
+"exit" = "deny"
+"fallible_impl_from" = "deny"
+"implicit_clone" = "deny"
+"let_underscore_future" = "deny"
+"lossy_float_literal" = "deny"
+"manual_assert" = "deny"
+"manual_let_else" = "deny"
+"match_wildcard_for_single_variants" = "deny"
+"mem_forget" = "deny"
+"mut_mut" = "deny"
+"needless_continue" = "deny"
+"needless_pass_by_ref_mut" = "deny"
+"option_option" = "deny"
+"rc_mutex" = "deny"
+"redundant_else" = "deny"
+"ref_option_ref" = "deny"
+"todo" = "deny"
+"unchecked_time_subtraction" = "deny"
+"undocumented_unsafe_blocks" = "deny"
+"unimplemented" = "deny"
+"unnecessary_box_returns" = "deny"
+"unnecessary_safety_comment" = "deny"
+"unnecessary_safety_doc" = "deny"
+"unnested_or_patterns" = "deny"
+
+["lints"."clippy"."correctness"]
+"level" = "deny"
+"priority" = -1
+
+["lints"."clippy"."suspicious"]
+"level" = "deny"
+"priority" = -1
+
+["lints"."clippy"."complexity"]
+"level" = "deny"
+"priority" = -1
+
+["lints"."clippy"."perf"]
+"level" = "deny"
+"priority" = -1
+
+["lints"."clippy"."style"]
+"level" = "deny"
+"priority" = -1

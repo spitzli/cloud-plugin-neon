@@ -1,0 +1,9 @@
+{
+  "name": "@spitzli/cloud-plugin-neon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "check:ui": "node scripts/check-ui.mjs" },
+  "peerDependencies": { "@webdock/plugin-ui": "^0.1.0", "react": "^19.2.8", "zod": "^4.6.5" },
+  "peerDependenciesMeta": { "@webdock/plugin-ui": { "optional": true } }
+}
