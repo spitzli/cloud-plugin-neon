@@ -1,6 +1,6 @@
 {
   "name": "@spitzli/cloud-plugin-neon",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "scripts": { "check:authority": "node scripts/check-action-authority.mjs", "check:ui": "node scripts/check-ui.mjs" },

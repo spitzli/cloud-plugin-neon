@@ -135,7 +135,7 @@ async fn inventory_projects_only_safe_fields_and_filters_selected_endpoint() {
         .await
         .is_err()
     );
-    assert_eq!(fake.calls.lock().unwrap().len(), 3);
+    assert_eq!(fake.calls.lock().unwrap().len(), 5);
     let fake = Fake::with(vec![
         json!({"projects":[{"id":"project-1","name":"EU fixture","region_id":"aws-eu-central-1","api_key":"discard"}]}),
         json!({"branches":[{"id":"br-main","name":"main"}],"pagination":{"cursor":"next-safe"}}),
@@ -341,4 +341,64 @@ async fn original_post_field_order_survives_standalone_json_parsing() {
     invoke(&fake, "databases.attach", input).await.unwrap();
     let calls = fake.calls.lock().unwrap();
     assert_eq!(serde_json::to_string(&calls[0]["body"]).unwrap(), raw);
+}
+
+#[tokio::test]
+async fn selected_inventory_overlaps_independent_host_round_trips() {
+    #[derive(Clone)]
+    struct Fanout(Arc<tokio::sync::Barrier>);
+    #[tonic::async_trait]
+    impl Host for Fanout {
+        async fn call(
+            &self,
+            token: &str,
+            service: &str,
+            method: &str,
+            input: Value,
+        ) -> Result<Value, PluginError> {
+            assert_eq!(
+                (token, service, method),
+                ("fixture-token", "http", "request")
+            );
+            assert_eq!(input["binding"], "neon");
+            assert_eq!(input["method"], "GET");
+            assert!(input.get("body").is_none());
+            let body = match input["path"].as_str().unwrap() {
+                "/projects" => {
+                    json!({"projects":[{"id":"project-1","name":"EU fixture","region_id":"aws-eu-central-1"}]})
+                }
+                "/projects/project-1/branches" => {
+                    json!({"branches":[{"id":"br-main","name":"main"}]})
+                }
+                "/projects/project-1/branches/br-main/databases" => {
+                    json!({"databases":[{"name":"app"}]})
+                }
+                "/projects/project-1/branches/br-main/roles" => {
+                    json!({"roles":[{"name":"app_owner","password":"must-not-escape"}]})
+                }
+                "/projects/project-1/endpoints" => {
+                    json!({"endpoints":[{"id":"ep-main","branch_id":"br-main"},{"id":"ep-foreign","branch_id":"br-foreign"}]})
+                }
+                path => panic!("Unexpected inventory path: {path}"),
+            };
+            // Completion requires exactly the five bounded reads to overlap; no network timing.
+            self.0.wait().await;
+            Ok(json!({"status":200,"body":body}))
+        }
+    }
+    let plugin = Neon::new(Fanout(Arc::new(tokio::sync::Barrier::new(5))));
+    let result = tokio::time::timeout(
+        std::time::Duration::from_secs(3),
+        plugin.invoke(
+            &claims("databases.discover"),
+            "fixture-token",
+            json!({"neon_project_id":"project-1","branch_id":"br-main"}),
+            json!({}),
+        ),
+    )
+    .await
+    .expect("Independent reads must overlap within one bounded action")
+    .unwrap();
+    assert_eq!(result["endpoints"].as_array().unwrap().len(), 1);
+    assert!(!result.to_string().contains("must-not-escape"));
 }

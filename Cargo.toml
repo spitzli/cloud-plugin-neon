@@ -1,6 +1,6 @@
 ["package"]
 "name" = "webdock-neon"
-"version" = "0.1.1"
+"version" = "0.1.2"
 "edition" = "2024"
 "rust-version" = "1.94"
 "license" = "AGPL-3.0-only"
@@ -19,7 +19,7 @@
 
 ["dependencies"."tokio"]
 "version" = "1"
-"features" = ["macros", "rt-multi-thread", "signal", "net"]
+"features" = ["macros", "rt-multi-thread", "signal", "net", "sync", "time"]
 
 ["dependencies"."webdock-plugin-protocol"]
 "git" = "https://github.com/spitzli/cloud-plugin-sdk"
