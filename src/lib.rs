@@ -190,67 +190,103 @@ impl Neon {
             text(value, 512)?;
             query["cursor"] = json!(value);
         }
-        let project_body = self
-            .request(
-                token,
-                "GET",
-                "/projects",
-                Some(if selected.neon_project_id.is_none() {
-                    query.clone()
-                } else {
-                    json!({"limit":"100"})
-                }),
-                None,
-            )
-            .await?;
+        let project = selected.neon_project_id.as_deref();
+        let branch = selected.branch_id.as_deref();
+        let projects = self.request(
+            token,
+            "GET",
+            "/projects",
+            Some(if project.is_none() {
+                query.clone()
+            } else {
+                json!({"limit":"100"})
+            }),
+            None,
+        );
+        let branch_inventory = async {
+            match project {
+                Some(project) => {
+                    self.request(
+                        token,
+                        "GET",
+                        &format!("/projects/{project}/branches"),
+                        Some(query.clone()),
+                        None,
+                    )
+                    .await
+                }
+                None => Ok(json!({"branches":[]})),
+            }
+        };
+        let details = async {
+            let (Some(project), Some(branch)) = (project, branch) else {
+                return Ok::<_, PluginError>(None);
+            };
+            let databases_path = format!("/projects/{project}/branches/{branch}/databases");
+            let roles_path = format!("/projects/{project}/branches/{branch}/roles");
+            let endpoints_path = format!("/projects/{project}/endpoints");
+            Ok(Some(tokio::try_join!(
+                self.request(
+                    token,
+                    "GET",
+                    &databases_path,
+                    Some(json!({"limit":"100"})),
+                    None
+                ),
+                self.request(
+                    token,
+                    "GET",
+                    &roles_path,
+                    Some(json!({"limit":"100"})),
+                    None
+                ),
+                self.request(
+                    token,
+                    "GET",
+                    &endpoints_path,
+                    Some(json!({"limit":"100"})),
+                    None
+                ),
+            )?))
+        };
+        // At most five fixed GETs overlap; each retains Core's own current-authority checks.
+        let (project_body, branch_body, details) =
+            tokio::try_join!(projects, branch_inventory, details)?;
         let mut result = json!({
             "projects":rows(&project_body,"projects", &["id","name","region_id"], &["id","name"] )?,
             "branches":[],"databases":[],"roles":[],"endpoints":[],"cursor":cursor(&project_body)?
         });
-        let Some(project) = selected.neon_project_id else {
+        if project.is_none() {
             return Ok(result);
-        };
-        identifier(&project)?;
-        let branch_body = self
-            .request(
-                token,
-                "GET",
-                &format!("/projects/{project}/branches"),
-                Some(query),
-                None,
-            )
-            .await?;
+        }
         result["branches"] = branches(&branch_body)?;
         result["cursor"] = cursor(&branch_body)?;
-        let Some(branch) = selected.branch_id else {
+        let Some((databases, roles, endpoints)) = details else {
             return Ok(result);
         };
-        identifier(&branch)?;
-        for (key, path, fields, required) in [
+        for (key, body, fields, required) in [
             (
                 "databases",
-                format!("/projects/{project}/branches/{branch}/databases"),
+                databases,
                 &["name", "branch_id", "owner_name"][..],
                 &["name"][..],
             ),
             (
                 "roles",
-                format!("/projects/{project}/branches/{branch}/roles"),
+                roles,
                 &["name", "branch_id", "protected"][..],
                 &["name"][..],
             ),
             (
                 "endpoints",
-                format!("/projects/{project}/endpoints"),
+                endpoints,
                 &["id", "branch_id", "type", "current_state", "host"][..],
                 &["id", "branch_id"][..],
             ),
         ] {
-            let body = self
-                .request(token, "GET", &path, Some(json!({"limit":"100"})), None)
-                .await?;
             result[key] = rows(&body, key, fields, required)?;
         }
+        let branch = branch.ok_or_else(invalid)?;
         result["endpoints"]
             .as_array_mut()
             .ok_or_else(unavailable)?

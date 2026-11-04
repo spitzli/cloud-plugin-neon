@@ -135,7 +135,7 @@ async fn inventory_projects_only_safe_fields_and_filters_selected_endpoint() {
         .await
         .is_err()
     );
-    assert_eq!(fake.calls.lock().unwrap().len(), 3);
+    assert_eq!(fake.calls.lock().unwrap().len(), 5);
     let fake = Fake::with(vec![
         json!({"projects":[{"id":"project-1","name":"EU fixture","region_id":"aws-eu-central-1","api_key":"discard"}]}),
         json!({"branches":[{"id":"br-main","name":"main"}],"pagination":{"cursor":"next-safe"}}),
