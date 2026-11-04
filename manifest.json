@@ -1,6 +1,6 @@
 {
   "name": "neon",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "extension",
   "description": "Connect existing Neon databases, inspect branches and reveal connection URIs securely through Core.",
   "protocolVersion": 2,
@@ -42,7 +42,6 @@
       "capabilities": [
         "plugin.http.read"
       ],
-      "httpBinding": "neon",
       "input": {
         "type": "object",
         "additionalProperties": false,
@@ -74,7 +73,6 @@
       "capabilities": [
         "plugin.http.request"
       ],
-      "httpBinding": "neon",
       "input": {
         "type": "object",
         "additionalProperties": false,
@@ -130,7 +128,6 @@
       "capabilities": [
         "plugin.http.read"
       ],
-      "httpBinding": "neon",
       "input": {
         "type": "object",
         "additionalProperties": false,
@@ -155,7 +152,6 @@
       "capabilities": [
         "plugin.http.read"
       ],
-      "httpBinding": "neon",
       "input": {
         "type": "object",
         "additionalProperties": false,
@@ -180,7 +176,6 @@
       "capabilities": [
         "plugin.http.request"
       ],
-      "httpBinding": "neon",
       "input": {
         "type": "object",
         "additionalProperties": false,
@@ -209,7 +204,6 @@
       "capabilities": [
         "plugin.http.request"
       ],
-      "httpBinding": "neon",
       "input": {
         "type": "object",
         "additionalProperties": false,

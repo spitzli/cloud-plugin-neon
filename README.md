@@ -37,6 +37,8 @@ authority, and validates that authority before and after provider IO.
 
 The callback uses the published, unchanged
 `HostClient.call(token, "http", "request", request)` ABI with binding `neon`.
+The manifest declares `httpBindings: ["neon"]` for provider callbacks. Actions
+do not set `httpBinding`, which requests a separate website/SSO authority adapter.
 Inventory GETs use `plugin.http.read`. Attach, URI reveal and detach POSTs use
 `plugin.http.request` and their exact write action. API-token invocation, jobs and MCP access are not
 supported in this release. Core derives resource identity and provider tuples;
