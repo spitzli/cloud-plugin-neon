@@ -76,6 +76,14 @@ jobs:
       - run: bun scripts/plugin-release/release.mjs validate
       - name: Check and test the independent container target without publishing
         run: python3 scripts/plugin-release/build_oci.py --check < /dev/null
+      - name: Retain bounded redacted check failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: native-check-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ~/ci-failures/plugin-build-failure-*.log
+          if-no-files-found: ignore
+          retention-days: 1
 
   release:
     needs: check
