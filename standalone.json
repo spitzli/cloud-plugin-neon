@@ -14,7 +14,7 @@
     "protocol": "webdock.plugin.v2",
     "registryAdmission": "requires-native-validation-and-signed-registry-receipt",
     "runtimeBinding": "Core-admitted native manifest with exact image digest and release version",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "sdkDependencies": [
     "webdock-plugin-kit",

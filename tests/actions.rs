@@ -274,14 +274,18 @@ fn manifest_pins_complete_action_and_privilege_boundary() {
     assert_eq!(value["actions"].as_array().unwrap().len(), 6);
     assert_eq!(value["tables"], json!([]));
     assert_eq!(value["secrets"], json!([]));
+    assert_eq!(value["httpBindings"], json!(["neon"]));
     for action in value["actions"].as_array().unwrap() {
-        assert_eq!(action["httpBinding"], "neon");
+        assert!(action.get("httpBinding").is_none());
         assert_eq!(action["input"]["additionalProperties"], false);
         if action["name"] == "databases.credentials" {
             assert_eq!(action["intent"], "write");
             assert_eq!(action["capabilities"], json!(["plugin.http.request"]));
         }
     }
+    let mut changed = value.clone();
+    changed["actions"][0]["httpBinding"] = json!("neon");
+    assert!(validate_manifest(&parse(&changed).unwrap()).is_err());
     let mut changed = value.clone();
     changed["actions"][4]["intent"] = json!("read");
     assert!(
