@@ -108,3 +108,7 @@ NOTICE and COMMERCIAL-LICENSING.md for exceptions and artwork ownership.
 New database attachments require an existing project in AWS Frankfurt (`aws-eu-central-1`). Core checks the actual provider project metadata, not a form label. Inventory can show other projects, but they cannot be attached in this release. This preserves the platform's EU placement policy; the initial supported database region is deliberately explicit. No existing project is moved or deleted. See [Neon regions](https://neon.com/docs/introduction/regions).
 
 Workspace owners, administrators and authorized operators browse provider-wide project and branch inventory. Read-only customer preview may view permitted settings, but cannot enumerate the provider account or reveal a URI. Ordinary workspace membership alone does not grant Neon actions; the existing database-management permission remains required. Disabling new attachments does not disable an owner's local detach cleanup.
+
+### Reading database details
+
+The overview validates the selected project once before reading its endpoint. Open **Show branches** to fetch the branch list when needed. Read requests have a bounded wait and an explicit retry; they are not retried automatically. Detach remains available after a provider error, but is not shown while the initial overview is pending.
