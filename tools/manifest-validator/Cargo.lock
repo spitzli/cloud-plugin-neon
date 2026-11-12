@@ -992,6 +992,32 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0d5d4b1981b8bbbb7aed204cae5726d683d5d6ac7e74ec54122ea28f315e7c8"
 
 [[package]]
+name = "spitzli-plugin-protocol"
+version = "0.1.0"
+source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8019f3df67dba3fed3083f22635e4725028c1b5e#8019f3df67dba3fed3083f22635e4725028c1b5e"
+dependencies = [
+ "base64",
+ "chrono",
+ "ed25519-dalek",
+ "jsonschema",
+ "node-semver",
+ "regex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "spitzli-registry-manifest-validator"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "spitzli-plugin-protocol",
+]
+
+[[package]]
 name = "spki"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1237,32 +1263,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3b1f9c3798725016c6ee5f2f57869ec0831e8bbc0ab0310a86e787e97f41389e"
 dependencies = [
  "unicode-ident",
-]
-
-[[package]]
-name = "webdock-plugin-protocol"
-version = "0.1.0"
-source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6#8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
-dependencies = [
- "base64",
- "chrono",
- "ed25519-dalek",
- "jsonschema",
- "node-semver",
- "regex",
- "serde",
- "serde_json",
- "sha2",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "webdock-registry-manifest-validator"
-version = "0.1.0"
-dependencies = [
- "serde_json",
- "webdock-plugin-protocol",
 ]
 
 [[package]]

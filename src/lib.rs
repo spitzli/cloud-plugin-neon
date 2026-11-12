@@ -1,9 +1,9 @@
 //! Stateless Neon database actions. Core owns keys, authorization, bindings and receipts.
 use serde::Deserialize;
 use serde_json::{Value, json};
+use spitzli_plugin_protocol::{ErrorCode, InvocationClaims, Manifest, PluginError};
+use spitzli_plugin_runtime::{ActionHandler, HostClient};
 use std::sync::Arc;
-use webdock_plugin_protocol::{ErrorCode, InvocationClaims, Manifest, PluginError};
-use webdock_plugin_runtime::{ActionHandler, HostClient};
 
 type Result<T> = std::result::Result<T, PluginError>;
 pub const PLUGIN_ID: &str = "neon";

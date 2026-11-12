@@ -75,7 +75,7 @@ pushed immutable digest and creates identical native release descriptor bytes.
 
 See [STANDALONE.md](STANDALONE.md) for the exact SDK/toolchain, qualified build
 commands, host UI ABI check and release procedure. The Console bundles
-[ui/index.tsx](ui/index.tsx) through `@webdock/plugin-ui`; it is a host peer module,
+[ui/index.tsx](ui/index.tsx) through `@spitzli/plugin-ui`; it is a host peer module,
 not a separately authenticated website. Native panels remain usable when the
 custom module is unavailable. The custom Create module is required for selector
 based attachment instead of the generic opaque-ID form.

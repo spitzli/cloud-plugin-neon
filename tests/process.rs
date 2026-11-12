@@ -65,7 +65,7 @@ async fn sigterm_stops_the_real_runtime_and_removes_its_owned_socket() {
         .unwrap(),
     );
     fixture.child = Some(
-        Command::new(env!("CARGO_BIN_EXE_webdock-neon"))
+        Command::new(env!("CARGO_BIN_EXE_spitzli-neon"))
             .arg(configuration)
             .stdout(Stdio::null())
             .stderr(Stdio::piped())
@@ -91,10 +91,10 @@ async fn sigterm_stops_the_real_runtime_and_removes_its_owned_socket() {
     .unwrap();
     // A response (including unavailable Core authority) proves the server loop is
     // running and its shutdown future has installed the termination handler.
-    let mut client = webdock_plugin_runtime::connect_unix(&socket).await.unwrap();
+    let mut client = spitzli_plugin_runtime::connect_unix(&socket).await.unwrap();
     let _ = tokio::time::timeout(
         Duration::from_secs(5),
-        client.health(webdock_plugin_runtime::wire::HealthRequest {}),
+        client.health(spitzli_plugin_runtime::wire::HealthRequest {}),
     )
     .await
     .unwrap();

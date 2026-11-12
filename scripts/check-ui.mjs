@@ -6,8 +6,8 @@ import { resolve, dirname } from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-const host = process.env.WEBDOCK_CONSOLE_ROOT;
-if (!host) throw Error('Set WEBDOCK_CONSOLE_ROOT to a checked-out apps/console with its locked dependencies installed.');
+const host = process.env.SPITZLI_CONSOLE_ROOT;
+if (!host) throw Error('Set SPITZLI_CONSOLE_ROOT to a checked-out apps/console with its locked dependencies installed.');
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const consoleRoot = resolve(host);
 const require = createRequire(resolve(consoleRoot, 'package.json'));
@@ -23,7 +23,7 @@ try {
   await writeFile(config, JSON.stringify({
     extends: resolve(consoleRoot, 'tsconfig.json'),
     compilerOptions: { noEmit: true, baseUrl: consoleRoot, types: [resolve(vite, 'client.d.ts'), resolve(nodeTypes, 'index.d.ts')], paths: {
-      '@webdock/plugin-ui': [resolve(consoleRoot, 'src/plugins/sdk.ts')],
+      '@spitzli/plugin-ui': [resolve(consoleRoot, 'src/plugins/sdk.ts')],
       '@plugins/*': [resolve(consoleRoot, '../../plugins/*')],
       react: [resolve(reactTypes, 'index.d.ts')],
       'react/jsx-runtime': [resolve(reactTypes, 'jsx-runtime.d.ts')],
