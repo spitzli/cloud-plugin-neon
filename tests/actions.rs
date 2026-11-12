@@ -1,11 +1,11 @@
 use serde_json::{Value, json};
+use spitzli_neon::{Host, Neon, validate_manifest};
+use spitzli_plugin_protocol::{InvocationClaims, Manifest, PluginError};
+use spitzli_plugin_runtime::ActionHandler;
 use std::{
     collections::VecDeque,
     sync::{Arc, Mutex},
 };
-use webdock_neon::{Host, Neon, validate_manifest};
-use webdock_plugin_protocol::{InvocationClaims, Manifest, PluginError};
-use webdock_plugin_runtime::ActionHandler;
 
 #[derive(Clone, Default)]
 struct Fake {
@@ -198,7 +198,7 @@ async fn invalid_authority_fields_and_path_traversal_never_reach_host() {
             .is_err()
     );
     let mut job = claims("databases.discover");
-    job.job = Some(webdock_plugin_protocol::JobIdentity {
+    job.job = Some(spitzli_plugin_protocol::JobIdentity {
         id: format!("job-{}", "a".repeat(64)),
         attempt: 1,
     });

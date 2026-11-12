@@ -1989,6 +1989,90 @@ dependencies = [
 ]
 
 [[package]]
+name = "spitzli-neon"
+version = "0.1.3"
+dependencies = [
+ "ed25519-dalek",
+ "hex",
+ "rustix",
+ "serde",
+ "serde_json",
+ "spitzli-plugin-kit",
+ "spitzli-plugin-protocol",
+ "spitzli-plugin-runtime",
+ "tokio",
+ "tonic",
+]
+
+[[package]]
+name = "spitzli-plugin-kit"
+version = "0.1.0"
+source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8019f3df67dba3fed3083f22635e4725028c1b5e#8019f3df67dba3fed3083f22635e4725028c1b5e"
+dependencies = [
+ "aes-gcm",
+ "getrandom 0.2.17",
+ "hex",
+ "rustix",
+ "rustls",
+ "rustls-pemfile",
+ "serde",
+ "serde_json",
+ "spitzli-plugin-protocol",
+ "spitzli-plugin-runtime",
+ "tokio",
+ "tokio-postgres",
+ "tokio-postgres-rustls",
+ "tonic",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "spitzli-plugin-protocol"
+version = "0.1.0"
+source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8019f3df67dba3fed3083f22635e4725028c1b5e#8019f3df67dba3fed3083f22635e4725028c1b5e"
+dependencies = [
+ "base64",
+ "chrono",
+ "ed25519-dalek",
+ "jsonschema",
+ "node-semver",
+ "regex",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "spitzli-plugin-runtime"
+version = "0.1.0"
+source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8019f3df67dba3fed3083f22635e4725028c1b5e#8019f3df67dba3fed3083f22635e4725028c1b5e"
+dependencies = [
+ "ed25519-dalek",
+ "hex",
+ "hyper-util",
+ "prost",
+ "rustix",
+ "rustls",
+ "rustls-pemfile",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "spitzli-plugin-protocol",
+ "tokio",
+ "tokio-rustls",
+ "tokio-stream",
+ "tonic",
+ "tonic-prost",
+ "tonic-prost-build",
+ "tower",
+ "url",
+ "x509-parser",
+]
+
+[[package]]
 name = "spki"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2673,90 +2757,6 @@ checksum = "d7d179596ff5ec0f6de4db64d54011bde6289cc49603d3a6e4ce3f329207ab88"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "webdock-neon"
-version = "0.1.3"
-dependencies = [
- "ed25519-dalek",
- "hex",
- "rustix",
- "serde",
- "serde_json",
- "tokio",
- "tonic",
- "webdock-plugin-kit",
- "webdock-plugin-protocol",
- "webdock-plugin-runtime",
-]
-
-[[package]]
-name = "webdock-plugin-kit"
-version = "0.1.0"
-source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6#8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
-dependencies = [
- "aes-gcm",
- "getrandom 0.2.17",
- "hex",
- "rustix",
- "rustls",
- "rustls-pemfile",
- "serde",
- "serde_json",
- "tokio",
- "tokio-postgres",
- "tokio-postgres-rustls",
- "tonic",
- "url",
- "uuid",
- "webdock-plugin-protocol",
- "webdock-plugin-runtime",
-]
-
-[[package]]
-name = "webdock-plugin-protocol"
-version = "0.1.0"
-source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6#8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
-dependencies = [
- "base64",
- "chrono",
- "ed25519-dalek",
- "jsonschema",
- "node-semver",
- "regex",
- "serde",
- "serde_json",
- "sha2 0.10.9",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "webdock-plugin-runtime"
-version = "0.1.0"
-source = "git+https://github.com/spitzli/cloud-plugin-sdk?rev=8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6#8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6"
-dependencies = [
- "ed25519-dalek",
- "hex",
- "hyper-util",
- "prost",
- "rustix",
- "rustls",
- "rustls-pemfile",
- "serde",
- "serde_json",
- "sha2 0.10.9",
- "tokio",
- "tokio-rustls",
- "tokio-stream",
- "tonic",
- "tonic-prost",
- "tonic-prost-build",
- "tower",
- "url",
- "webdock-plugin-protocol",
- "x509-parser",
 ]
 
 [[package]]

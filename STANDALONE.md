@@ -1,7 +1,7 @@
 # Standalone build
 
 This repository is independent of the Core Rust workspace. Package/binary:
-`webdock-neon` 0.1.0. Native protocol/SDK/data protocol: v2. Both SDK crates use the
+`spitzli-neon` 0.1.0. Native protocol/SDK/data protocol: v2. Both SDK crates use the
 published Git revision `8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6` from
 `https://github.com/spitzli/cloud-plugin-sdk`. Rust is pinned to 1.98.1. Both
 `Cargo.lock` files are included. No local path dependency or new SDK release is
@@ -45,12 +45,12 @@ copied implementation or ambient mock of authorization hooks. On the EU build
 server install the Console's locked dependencies, then run:
 
 ```sh
-WEBDOCK_CONSOLE_ROOT=/path/to/webdock/apps/console node scripts/check-ui.mjs
+SPITZLI_CONSOLE_ROOT=/path/to/webdock/apps/console node scripts/check-ui.mjs
 ```
 
 This resolves the host's installed TypeScript, React types and Zod, and checks
 this repository's module against its real `src/plugins/sdk.ts`. A host bundles
-`ui/index.tsx` under `@webdock/plugin-ui` and `ui/nav.ts` as the Neon sidebar
+`ui/index.tsx` under `@spitzli/plugin-ui` and `ui/nav.ts` as the Neon sidebar
 metadata; it must grant `databases.discover` before opening the custom Create
 form. Run the host's browser fixtures against the real module as well.
 
@@ -94,7 +94,7 @@ source descriptor. Never publish the authoring placeholder.
 
 `.github/workflows/plugin.yml` uses only managed Blacksmith runners and its
 managed builder with `nofallback: true`. It stays disabled until the organization
-records actual region/tool/builder qualification in the existing `WEBDOCK_*`
+records actual region/tool/builder qualification in the existing `SPITZLI_*`
 variables. The owner's own-CI placement exception permits the recorded US West
 runner; it does not apply to customer resources or manual builds. Set the normal
 scoped registry trust/token and GHCR permissions only in the approved release

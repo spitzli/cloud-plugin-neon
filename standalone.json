@@ -1,28 +1,28 @@
 {
   "binaries": [
-    "webdock-neon"
+    "spitzli-neon"
   ],
   "connectionsOwner": "Core",
   "coreIntegrationDependencies": [],
   "coreIntegrationTests": [],
-  "entrypoint": "webdock-neon",
+  "entrypoint": "spitzli-neon",
   "lockfileRequiresRegeneration": false,
   "name": "neon",
-  "package": "webdock-neon",
+  "package": "spitzli-neon",
   "release": {
     "mode": "native-extension",
     "protocol": "webdock.plugin.v2",
     "registryAdmission": "requires-native-validation-and-signed-registry-receipt",
     "runtimeBinding": "Core-admitted native manifest with exact image digest and release version",
-    "version": "0.1.2"
+    "version": "0.1.3"
   },
   "sdkDependencies": [
-    "webdock-plugin-kit",
-    "webdock-plugin-protocol",
-    "webdock-plugin-runtime"
+    "spitzli-plugin-kit",
+    "spitzli-plugin-protocol",
+    "spitzli-plugin-runtime"
   ],
   "sdkGit": "https://github.com/spitzli/cloud-plugin-sdk",
-  "sdkRevision": "8ed57d89c3263b050f126e4c2ba7f6cdebb0daa6",
+  "sdkRevision": "8019f3df67dba3fed3083f22635e4725028c1b5e",
   "source": ".",
-  "sourceName": "webdock-neon"
+  "sourceName": "spitzli-neon"
 }

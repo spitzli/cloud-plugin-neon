@@ -1,8 +1,8 @@
 //! Stateless native v2 Neon runtime over Core-admitted Unix sockets or pinned mTLS.
 use serde::Deserialize;
+use spitzli_plugin_kit::transport::{CoreTls, ListenTls, RuntimeTransport};
+use spitzli_plugin_runtime::{self as runtime};
 use std::{path::PathBuf, process::ExitCode, sync::Arc};
-use webdock_plugin_kit::transport::{CoreTls, ListenTls, RuntimeTransport};
-use webdock_plugin_runtime::{self as runtime};
 type Error = Box<dyn std::error::Error + Send + Sync>;
 
 #[derive(Deserialize)]
@@ -18,7 +18,7 @@ struct Configuration {
     core_peers: Vec<runtime::CorePeer>,
 }
 fn configuration(path: &std::path::Path) -> Result<Configuration, Error> {
-    let bytes = webdock_plugin_kit::read_file(path, true)?;
+    let bytes = spitzli_plugin_kit::read_file(path, true)?;
     if bytes.len() > 262144 {
         return Err("configuration limit".into());
     }
@@ -63,11 +63,11 @@ async fn run() -> Result<(), Error> {
     };
     validate_transport(&transport)?;
     let key = issuer_key(&config.issuer_public_key_hex)?;
-    let manifest = webdock_plugin_protocol::Manifest::parse(&webdock_plugin_kit::read_file(
+    let manifest = spitzli_plugin_protocol::Manifest::parse(&spitzli_plugin_kit::read_file(
         &config.manifest,
         false,
     )?)?;
-    webdock_neon::validate_manifest(&manifest)?;
+    spitzli_neon::validate_manifest(&manifest)?;
     let client = transport.core_client_lazy().await?;
     let authority = runtime::RemoteAuthority::new(
         client.clone(),
@@ -80,7 +80,7 @@ async fn run() -> Result<(), Error> {
         config.generation,
         key,
         Arc::new(authority),
-        Arc::new(webdock_neon::Neon::new(client)),
+        Arc::new(spitzli_neon::Neon::new(client)),
     )?;
     match (&transport.listen, &transport.listen_tls) {
         (Some(path), None) => {
